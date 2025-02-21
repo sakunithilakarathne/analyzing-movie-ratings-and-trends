@@ -13,7 +13,7 @@ def concat_dataframes(*args,axis=0,ignore_index=True):
     Returns:
         A single concatenated DataFrame.
     """
-    combined_df = pd.concat(args, axis=axis, ignore_index=ignore_index)
+    combined_df = pd.concat([args], axis=axis, ignore_index=ignore_index)
     return combined_df
 
 
