@@ -1,14 +1,17 @@
 import pandas as pd
-from sklearn.preprocessing import MultiLabelBinarizer
+
 
 def removing_duplicates(dataset):
+    """
+    Checks for the missing values in dataset and removes them.
+    """
     # Check for duplicates
     duplicates = dataset.duplicated(subset=['IMDb ID'], keep=False)
     duplicate_rows = dataset[duplicates]
 
     # Check if there are any duplicates
     if duplicate_rows.empty:
-        print("No Duplicates")
+        print("\n No Duplicates found !\n")
     else:
         print("Duplicates found:")
         dataset.drop_duplicates(subset=['IMDb ID'], keep='first', inplace=True)
@@ -16,48 +19,70 @@ def removing_duplicates(dataset):
 
     return dataset
 
-def converting_data_types(dataset):
+def cleaning_data(dataset):
+    """
+    Clean the dataset of unnecessary suffixes, prefixes and symbols.
+    """
+    # Removing min suffix from Movie Runtime column
+    dataset["Movie Runtime"] = dataset["Movie Runtime"].str.split(" ").str[0]
 
-    # Removing min and converting to int type from "Movie Runtime" column
-    dataset["Movie Runtime"] = dataset["Movie Runtime"].str.split(" ").str[0].astype(int)
-    # Removing $ and , and converting to int type from "Domestic Gross" column
+    # Removing $ prefix and . from Domestic Gross column
     dataset["Domestic Gross"] = dataset["Domestic Gross"].str.replace("$", "")
     dataset["Domestic Gross"] = dataset["Domestic Gross"].str.replace(",", "")
-    dataset["Domestic Gross"] = pd.to_numeric(dataset["Domestic Gross"], errors='coerce').astype("Int64")
-    # Converting the IMDb rating from 7.9/10 to 7.9 and to float type
+
+    # Turning IMDB Rating column from x/10 into x
     dataset["IMDB Rating"] = dataset["IMDB Rating"].str.split("/").str[0]
-    dataset["IMDB Rating"] = pd.to_numeric(dataset["IMDB Rating"], errors="coerce")
-    # Changing RT Rating from 80% to 80 and Converting to int type
+
+    # Turning RT Rating column from x% to x
     dataset["RT Rating"] = dataset["RT Rating"].str.replace("%", "")
-    dataset["RT Rating"] = pd.to_numeric(dataset["RT Rating"], errors="coerce").astype("Int64")
-    # Changing Metacritic rating from 83/100 to 83 and Converting to int type
+
+    # Turning Metacritic Column from x/100 to x
     dataset["Metacritic Rating"] = dataset["Metacritic Rating"].str.split("/").str[0]
-    dataset["Metacritic Rating"] = pd.to_numeric(dataset["Metacritic Rating"], errors="coerce").astype("Int64")
-    # Removing , from IMDB vote count and converting to int type
+
+    # Removing , from IMDB Vote Count column
     dataset["IMDB Vote Count"] = dataset["IMDB Vote Count"].str.replace(",", "")
-    dataset["IMDB Vote Count"] = pd.to_numeric(dataset["IMDB Vote Count"], errors='coerce').astype("Int64")
-
-    # Convert Movie Release Date datetime type
-    dataset["Movie Release Date"] = pd.to_datetime(dataset["Movie Release Date"], format='%d-%b-%y')
-
+    print("\n Unnecessary symbols and spaces removed from dataset! \n")
     return dataset
 
 
-def handling_categorical_data(dataset):
+def converting_data_types(dataset):
+    """
+    Convert the data into correct types from object type.
+    """
 
-    # ------------- 1. Handling Movie Genres Column ---------------
+    # Converting "Movie Runtime" column to int
+    dataset["Movie Runtime"] = pd.to_numeric(dataset["Movie Runtime"], errors="coerce").astype("Int64")
+    # Converting "Domestic Gross" column to int
+    dataset["Domestic Gross"] = pd.to_numeric(dataset["Domestic Gross"], errors='coerce').astype("Int64")
+    # Converting the IMDb rating column to float
+    dataset["IMDB Rating"] = pd.to_numeric(dataset["IMDB Rating"], errors="coerce")
+    # Converting "RT Rating" column to int type
+    dataset["RT Rating"] = pd.to_numeric(dataset["RT Rating"], errors="coerce").astype("Int64")
+    # Converting "Metacritic Rating" column to int type
+    dataset["Metacritic Rating"] = pd.to_numeric(dataset["Metacritic Rating"], errors="coerce").astype("Int64")
+    # Removing , from IMDB vote count and converting to int type
+    dataset["IMDB Vote Count"] = pd.to_numeric(dataset["IMDB Vote Count"], errors='coerce').astype("Int64")
 
-    # Split genres into individual genres
-    dataset["Movie Genre"] = dataset["Movie Genre"].str.split(',')
-    # Initializing
-    mlb = MultiLabelBinarizer()
-    # One hot encoding for genre values
-    genre_encoded = pd.DataFrame(mlb.fit_transform(dataset["Movie Genre"]), columns=mlb.classes_)
-    # Adding the encoded values to the dataset
-    dataset = pd.concat([dataset, genre_encoded], axis=1)
+    # Convert Movie Release Date datetime type
+    dataset["Movie Release Date"] = pd.to_datetime(dataset["Movie Release Date"], format='%d %b %Y')
 
-    # Drop movie genre column
-    #dataset.drop("Movie Genre", axis=1, inplace=True)
+    # Ensuring Movie Genre is in str format
+    dataset['Movie Genre'] = dataset['Movie Genre'].astype(str)
+    dataset['Language'] = dataset['Language'].astype(str)
+    dataset['Country'] = dataset['Country'].astype(str)
 
-    # ------------- 2.  ---------------
+    print("\n Data converted to appropriate type ! \n")
+    return dataset
+
+def dropping_unnecessary_columns(dataset):
+    # Columns to drop
+    columns_to_drop = [
+        'Movie Title', 'Movie Release Date', 'IMDb ID', 'Movie Genre',
+        'Movie Director', 'Writers', 'Actors', 'Language', 'Country'
+    ]
+
+    # Drop unnecessary columns
+    dataset = dataset.drop(columns=columns_to_drop)
+
+    print("\n Unncessary columns dropped! \n")
     return dataset
