@@ -7,8 +7,8 @@ from botocore.exceptions import NoCredentialsError
 
 
 
-access_key = "AKIAXHND3CRPCBHL2V4A"
-secret_key = "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"
+access_key = "ACCESS_KEY"
+secret_key = "SECRET_KEY"
 region = 'ap-southeast-1'
 
 
