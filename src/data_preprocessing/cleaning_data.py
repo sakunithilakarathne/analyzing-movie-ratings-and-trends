@@ -77,12 +77,13 @@ def converting_data_types(dataset):
 def dropping_unnecessary_columns(dataset):
     # Columns to drop
     columns_to_drop = [
-        'Movie Year','Movie Title', 'Movie Release Date', 'IMDb ID', 'Movie Genre',
+        'Movie Year','Movie Title', 'Movie Release Date', 'Movie Genre',
         'Movie Director', 'Writers', 'Actors', 'Language', 'Country'
     ]
 
     # Drop unnecessary columns
     dataset = dataset.drop(columns=columns_to_drop)
+
 
     print("\n Unnecessary columns dropped! \n")
     return dataset
