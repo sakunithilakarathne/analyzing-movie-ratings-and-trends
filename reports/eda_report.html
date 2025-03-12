@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDA Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h1 { color: #2c3e50; }
+        h2 { color: #34495e; }
+        img { max-width: 100%; height: auto; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Exploratory Data Analysis (EDA) Report</h1>
+
+    <h2>1. Summary Statistics</h2>
+    <h3>Numerical Columns:</h3>
+    <table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Movie Runtime</th>
+      <th>Domestic Gross</th>
+      <th>IMDB Rating</th>
+      <th>Metacritic Rating</th>
+      <th>IMDB Vote Count</th>
+      <th>Release Month</th>
+      <th>director_popularity</th>
+      <th>actor_popularity</th>
+      <th>writer_popularity</th>
+      <th>Language_Count</th>
+      <th>Country_Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>2455.000000</td>
+      <td>2.455000e+03</td>
+      <td>2455.000000</td>
+      <td>2455.000000</td>
+      <td>2.455000e+03</td>
+      <td>2455.000000</td>
+      <td>2455.000000</td>
+      <td>2455.000000</td>
+      <td>2455.000000</td>
+      <td>2455.000000</td>
+      <td>2455.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>115.861914</td>
+      <td>9.685072e+07</td>
+      <td>6.792939</td>
+      <td>60.191853</td>
+      <td>2.635600e+05</td>
+      <td>6.925866</td>
+      <td>4.898982</td>
+      <td>14.540122</td>
+      <td>5.747454</td>
+      <td>1.965377</td>
+      <td>1.859063</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>23.096447</td>
+      <td>9.832814e+07</td>
+      <td>0.929444</td>
+      <td>16.690781</td>
+      <td>2.954441e+05</td>
+      <td>3.490032</td>
+      <td>4.383182</td>
+      <td>9.786886</td>
+      <td>4.103064</td>
+      <td>1.321575</td>
+      <td>1.241308</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>41.000000</td>
+      <td>6.752000e+03</td>
+      <td>1.700000</td>
+      <td>12.000000</td>
+      <td>9.200000e+01</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>3.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>100.000000</td>
+      <td>3.968043e+07</td>
+      <td>6.200000</td>
+      <td>48.000000</td>
+      <td>1.015535e+05</td>
+      <td>4.000000</td>
+      <td>2.000000</td>
+      <td>6.000000</td>
+      <td>3.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>113.000000</td>
+      <td>7.150359e+07</td>
+      <td>6.800000</td>
+      <td>60.000000</td>
+      <td>1.700710e+05</td>
+      <td>7.000000</td>
+      <td>4.000000</td>
+      <td>12.000000</td>
+      <td>5.000000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>128.000000</td>
+      <td>1.223554e+08</td>
+      <td>7.500000</td>
+      <td>72.000000</td>
+      <td>3.151040e+05</td>
+      <td>10.000000</td>
+      <td>6.000000</td>
+      <td>21.000000</td>
+      <td>8.000000</td>
+      <td>2.000000</td>
+      <td>2.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>321.000000</td>
+      <td>9.366622e+08</td>
+      <td>9.200000</td>
+      <td>100.000000</td>
+      <td>2.974670e+06</td>
+      <td>12.000000</td>
+      <td>27.000000</td>
+      <td>51.000000</td>
+      <td>30.000000</td>
+      <td>11.000000</td>
+      <td>11.000000</td>
+    </tr>
+  </tbody>
+</table>
+    
+
+
+    <h2>2. Visualizations</h2>
+    <h3>Histograms Plots for Numerical Features</h3>
+	<p class="text-line">
+        These graphs show the distribution of the numerical features like Movie Runtime, IMDB Rating, RT Rating, Metacritic Rating, IMDB Vote Count, director_popularity, actor_popularity, writer_popularity, Language_Count, and Country_Count.
+    </p>
+    <img src="plots/histograms_for_NumericalColumns.png" alt="Histograms Plots for Numerical Features">
+
+    <h3>Bar Charts for Categorical Features</h3>
+	<p class="text-line">
+        These graph shows the frequency of each Categorical Variable
+    </p>
+    <img src="plots/bar_charts_for_CategoricalData.png" alt="Bar Charts for Categorical Features">
+
+    <h3>Scatter plots for numerical features vs Domestic Gross</h3>
+	<p class="text-line">
+        The graphs explore the relationship between numerical features and Domestic Gross. 
+		For example, plot IMDB Rating vs. Domestic Gross, Movie Runtime vs. Domestic Gross, etc.
+    </p>
+    <img src="plots/scatterplots_against_DomesticGross.png" alt="Scatter plots for numerical features vs Domestic Gross">
+
+    <h3>Bar graphs for categorical features vs Domestic Gross</h3>
+	<p class="text-line">
+        These bar graphs compare the distribution of Domestic Gross across different categories. 
+		We can see the comparison between Domestic Gross for movies released in different seasons, for movies that are holiday releases vs. non-holiday releases.
+    </p>
+    <img src="plots/bargraphs_against_DomesticGross.png" alt="Boxplot of Unit Price">
+	
+	<h3>Correlation Heatmap</h3>
+	<p class="text-line">
+        This graph visualize the correlation between Domestic Gross and other numerical features.
+    </p>
+    <img src="plots/correlation_heatmap.png" alt="Correlation Heatmap">
+	
+
+    <h3>Temporal Analysis</h3>
+	<p class="text-line">
+        Below two graphs show the Number of Movies and Average Domestic Gross by Month.
+    </p>
+    <img src="plots/no_of_movies_by_month.png" alt="Number of Movies by Month">
+	<img src="plots/average_domestic_gross_by_month.png" alt="Domestic Gross by Month">
+
+    <h3>Genre Analysis</h3>
+	<p class="text-line">
+        This graph depicts the Number of Movies by Genre.
+    </p>
+    <img src="plots/no_of_movies_by_genre.png" alt="Genre Analysis">
+	
+	<p class="text-line">
+        This graph depicts the Average Domestic Gross by Genre
+    </p>
+    <img src="plots/average_domestic_gross_by_genre.png" alt="Genre Analysis">
+
+</body>
+</html>

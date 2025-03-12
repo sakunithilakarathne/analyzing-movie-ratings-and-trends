@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDA Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h1 { color: #2c3e50; }
+        h2 { color: #34495e; }
+        img { max-width: 100%; height: auto; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Exploratory Data Analysis (EDA) Report</h1>
+
+    <h2>1. Summary Statistics</h2>
+    <h3>Numerical Columns:</h3>
+    {{ summary_numerical | safe }}
+    
+
+
+    <h2>2. Visualizations</h2>
+    <h3>Histograms Plots for Numerical Features</h3>
+	<p class="text-line">
+        These graphs show the distribution of the numerical features like Movie Runtime, IMDB Rating, RT Rating, Metacritic Rating, IMDB Vote Count, director_popularity, actor_popularity, writer_popularity, Language_Count, and Country_Count.
+    </p>
+    <img src="plots/histograms_for_NumericalColumns.png" alt="Histograms Plots for Numerical Features">
+
+    <h3>Bar Charts for Categorical Features</h3>
+	<p class="text-line">
+        These graph shows the frequency of each Categorical Variable
+    </p>
+    <img src="plots/bar_charts_for_CategoricalData.png" alt="Bar Charts for Categorical Features">
+
+    <h3>Scatter plots for numerical features vs Domestic Gross</h3>
+	<p class="text-line">
+        The graphs explore the relationship between numerical features and Domestic Gross. 
+		For example, plot IMDB Rating vs. Domestic Gross, Movie Runtime vs. Domestic Gross, etc.
+    </p>
+    <img src="plots/scatterplots_against_DomesticGross.png" alt="Scatter plots for numerical features vs Domestic Gross">
+
+    <h3>Bar graphs for categorical features vs Domestic Gross</h3>
+	<p class="text-line">
+        These bar graphs compare the distribution of Domestic Gross across different categories. 
+		We can see the comparison between Domestic Gross for movies released in different seasons, for movies that are holiday releases vs. non-holiday releases.
+    </p>
+    <img src="plots/bargraphs_against_DomesticGross.png" alt="Boxplot of Unit Price">
+	
+	<h3>Correlation Heatmap</h3>
+	<p class="text-line">
+        This graph visualize the correlation between Domestic Gross and other numerical features.
+    </p>
+    <img src="plots/correlation_heatmap.png" alt="Correlation Heatmap">
+	
+
+    <h3>Temporal Analysis</h3>
+	<p class="text-line">
+        Below two graphs show the Number of Movies and Average Domestic Gross by Month.
+    </p>
+    <img src="plots/no_of_movies_by_month.png" alt="Number of Movies by Month">
+	<img src="plots/average_domestic_gross_by_month.png" alt="Domestic Gross by Month">
+
+    <h3>Genre Analysis</h3>
+	<p class="text-line">
+        This graph depicts the Number of Movies by Genre.
+    </p>
+    <img src="plots/no_of_movies_by_genre.png" alt="Genre Analysis">
+	
+	<p class="text-line">
+        This graph depicts the Average Domestic Gross by Genre
+    </p>
+    <img src="plots/average_domestic_gross_by_genre.png" alt="Genre Analysis">
+
+</body>
+</html>
