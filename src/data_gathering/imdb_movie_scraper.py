@@ -1,10 +1,13 @@
-#import required libraries
+
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
 
 def get_imdb_movies(sort_parameter):
+    """
+    Scrape IMDB website according to the specified parameter
+    """
 
     # URL for scraping IMDB
     base_url = "https://www.imdb.com/search/title/"
@@ -49,32 +52,5 @@ def get_imdb_movies(sort_parameter):
 
     # Removing duplicate values in the data frame
     df_cleaned = df.drop_duplicates(subset=["IMDb ID"]).reset_index(drop=True)
-    print(df_cleaned)
+
     return df_cleaned
-
-
-# # Call the function to collect least rated movies
-# #get_imdb__movies("num_votes,asc")
-#
-# # Extract the highest rated movies in all genres from IMDB website
-# highest_rated_movies_df = get_imdb__movies("user_rating,desc")
-#
-# # Extract most voted movies in all genres from IMDB website
-# most_voted_movies_df = get_imdb__movies("num_votes,desc")
-#
-# # Extract most popular movies in all genres from IMDB website
-# most_popular_movies_df = get_imdb__movies("moviemeter,desc")
-#
-# # Extract movies with the longest runtime in all genres from IMDB website
-# longest_runtime_movies_df = get_imdb__movies("runtime,desc")
-#
-# # Extract movies with the shortest runtime in all genres from IMDB website
-# shortest_runtime_movies_df = get_imdb__movies("runtime,asc")
-#
-# # Extract the latest released in all genres from IMDB website
-# latest_released_movies_df = get_imdb__movies("year,desc")
-#
-# combined_df = pd.concat([highest_rated_movies_df,most_voted_movies_df,most_popular_movies_df,longest_runtime_movies_df,shortest_runtime_movies_df,latest_released_movies_df],axis=0)
-#
-# cleaned_df = combined_df.drop_duplicates().reset_index(drop=True)
-# print(cleaned_df)

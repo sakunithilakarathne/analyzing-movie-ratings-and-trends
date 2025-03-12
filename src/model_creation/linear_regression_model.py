@@ -7,6 +7,9 @@ from sklearn.metrics import classification_report, roc_auc_score, accuracy_score
 
 
 def linear_regression_model(x_test,x_train,y_test,y_train):
+    """
+    Linear Regression Model
+    """
     # Initialize and train the Linear Regression model
     model = LinearRegression()
     model.fit(x_train, y_train)

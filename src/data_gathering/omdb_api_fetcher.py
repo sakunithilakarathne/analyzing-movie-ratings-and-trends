@@ -4,6 +4,9 @@ import pandas as pd
 API_KEY = "70b73d8d"
 
 def fetch_omdb_api_data(dataframe):
+    """
+    Fetch extensive movie data from OMDB API for the given IMDB ID list
+    """
 
     all_movie_data = []
 

@@ -1,12 +1,14 @@
-#import required libraries
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 
 
 def scrape_highest_grossing_movies():
+    """
+    Scrape the list of first 2000 highest grossing movies
+    """
     # Values used to paginate through the website
-    offset_values = [0, 200, 400, 600, 800]
+    offset_values = [0, 200, 400, 600, 800,1000,1200,1400,1600,1800]
 
     # List used to store the scraped data
     all_movie_data = []
@@ -39,10 +41,3 @@ def scrape_highest_grossing_movies():
     #print(df)
 
     return df
-
-
-# Call the function
-# scrape_highest_grossing_movies()
-
-# Save the DataFrame to a CSV file
-# movies_df.to_csv("highest_grossing_films.csv", index=False)

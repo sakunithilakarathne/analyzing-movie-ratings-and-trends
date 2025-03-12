@@ -3,9 +3,17 @@ import requests
 from bs4 import BeautifulSoup
 from src.data_gathering.box_office_mojo_movie_scraper import scrape_highest_grossing_movies
 from src.data_gathering.imdb_movie_scraper import get_imdb_movies
-from src.utils.helper_functions import concat_dataframes, save_df_to_csv
-from src.utils.helper_functions import remove_duplicates
+from src.utils.helper_functions import *
 from src.data_gathering.omdb_api_fetcher import fetch_omdb_api_data
+from src.data_preprocessing.cleaning_data import *
+from src.data_preprocessing.handling_missing_values import *
+from src.data_preprocessing.feature_engineering import *
+from src.data_visualization.creating_plots import *
+from src.data_visualization.generating_report import *
+from src.data_preprocessing.splitting_dataset import *
+from src.model_creation.linear_regression_model import *
+from src.model_creation.random_forest_model import *
+from src.model_creation.xg_boost_model import *
 
 # Configuration
 
@@ -38,16 +46,49 @@ def main():
         complete_movie_data_df = fetch_omdb_api_data(all_movie_data_cleaned)
         save_df_to_csv(complete_movie_data_df, "data/raw/complete_movie_data.csv")
 
+        #---------- Step 2 - Data Preprocessing Functions ----------
+        movie_data = pd.read_csv("data/raw/complete_movie_data.csv")
+        movie_data = removing_duplicates(dataset=movie_data)
+        movie_data = cleaning_data(dataset=movie_data)
+        movie_data = converting_data_types(dataset=movie_data)
+
+        movie_data = mean_median_mode_imputation(dataset=movie_data)
+
+        columns_to_impute = ['Domestic Gross', 'Metacritic Rating']
+        feature_cols = ['IMDB Rating', 'Movie Runtime', 'IMDB Vote Count', 'Movie Year']
+        for col in columns_to_impute:
+            statistical_imputation(movie_data, col, feature_cols)
+
+        movie_data = feature_engineering(dataset=movie_data)
+        movie_data = feature_encoding(dataset=movie_data)
+        # movie_data = feature_scaling(dataset=movie_data)
+        movie_data = dropping_unnecessary_columns(dataset=movie_data)
+        save_df_to_csv(movie_data, "src/data_visualization/dataset1.csv")
+        movie_data = feature_scaling(dataset=movie_data)
+        save_df_to_csv(movie_data, "data/processed/dataset_for_clustering.csv")
+        movie_data = movie_data.drop(columns='IMDb ID')
+        save_df_to_csv(movie_data, "data/processed/preprocessed_movie_data.csv")
+
+        # Analysis Functions
+
+        dataset = pd.read_csv("src/data_visualization/dataset.csv")
+        generate_pdf_report(dataset)
+
+        final_dataset = pd.read_csv("data/processed/preprocessed_movie_data.csv")
+        X_test,X_train,y_test,y_train = splitting_dataset(final_dataset)
+
+        linear_regression_model(X_test,X_train,y_test,y_train)
+        random_forest_model(X_test,X_train,y_test,y_train)
+        xg_boost_model(X_test,X_train,y_test,y_train)
+
+
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:
         print("Completed !")
 
 
-# Preprocessing Functions
 
-
-# Analysis Functions
 
 
 # Modeling Functions
